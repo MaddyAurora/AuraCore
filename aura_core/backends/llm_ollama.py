@@ -10,13 +10,17 @@ class OllamaLLMBackend:
         self.host = host.rstrip("/")
         self.model = model
 
-    def chat(self, message: str, history: List[Tuple[str, str]]) -> str:
+    def chat(self, message: str, history: List[Tuple[str, str]], system_prompt: str = "") -> str:
         url = f"{self.host}/api/chat"
 
         messages = []
+        if system_prompt:
+            messages.append({"role": "system", "content": system_prompt})
+
         for u, a in history[-20:]:
             messages.append({"role": "user", "content": u})
             messages.append({"role": "assistant", "content": a})
+
         messages.append({"role": "user", "content": message})
 
         try:
