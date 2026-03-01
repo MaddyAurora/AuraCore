@@ -1,0 +1,5 @@
+{
+  "note": "Example ComfyUI workflow placeholder. Replace with a valid SDXL txt2img workflow for your ComfyUI installation.",
+  "prompt_node": "TODO",
+  "workflow": {}
+}
