@@ -1,5 +1,3 @@
-Work in progress, not functional.
-
 # AuraCore
 
 AuraCore is a local-first Gradio WebUI that combines:
@@ -8,27 +6,25 @@ AuraCore is a local-first Gradio WebUI that combines:
 2) **Image generation** via a pluggable backend (recommended: ComfyUI for SDXL).
 3) **Image editing** via a pluggable backend (planned: FLUX.2 klein 4B / “Klein 4B”).
 
-This repository is structured to be “Pinokio-friendly” (install/start scripts included).
+This repository is structured to be “Pinokio-friendly” and includes one-click scripts to install and start the required backends.
 
-## Quickstart (Pinokio)
+## Quickstart (Pinokio / Windows)
 
-1. Install Pinokio.
-2. Put/clone this repo under `PINOKIO_HOME/api/AuraCore` (or install from URL in Pinokio).
-3. Click `install.js`, then `start.js`.
+1) Install AuraCore: run `Install (AuraCore)`.
+2) Install backends:
+- Run `install_ollama.js` (or install Ollama manually if winget is unavailable).
+- Run `install_comfyui.js` (installs ComfyUI into `backends/ComfyUI` and installs GPU PyTorch).
+3) Download SDXL model(s):
+- Set environment variables in Pinokio before running `Download Models`:
+- `SDXL_CHECKPOINT_URL` = direct download URL
+- `SDXL_CHECKPOINT_FILENAME` = e.g. `sd_xl_base_1.0.safetensors`
+4) Start everything: run `Start (All)`.
 
-Pinokio will create a local venv at `env/` and run the app in daemon mode.
+## Defaults
 
-## Quickstart (manual)
-
-```bash
-python -m venv env
-# Windows: env\Scripts\activate
-# macOS/Linux: source env/bin/activate
-pip install -r requirements.txt
-python app.py
-```
-
-Open the URL printed in the console.
+- Ollama host: `http://127.0.0.1:11434`
+- Ollama model: `qwen2.5`
+- ComfyUI host: `http://127.0.0.1:8188`
 
 ## Backends (pluggable)
 
@@ -43,21 +39,7 @@ And endpoints:
 - `OLLAMA_HOST=http://127.0.0.1:11434`
 - `COMFYUI_HOST=http://127.0.0.1:8188`
 
-### Ollama
-
-Run Ollama separately and ensure your model is pulled.
-
-### ComfyUI (SDXL)
-
-Run ComfyUI separately (with an SDXL workflow available). AuraCore includes an example workflow JSON under `workflows/` that you can adapt.
-
-## Project layout
-
-- `app.py`: Gradio UI (chat + generate + edit)
-- `aura_core/`: core logic, backend interfaces, adapters
-- `install.js`, `start.js`, `pinokio.js`: Pinokio launcher scripts
-
 ## Notes
 
 - No license is set yet; default copyright applies.
-- First milestone is a reliable local chat + backend wiring + minimal tool-routing.
+- Klein 4B image editing is not wired yet.
