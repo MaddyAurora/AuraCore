@@ -16,7 +16,7 @@ def build_app():
     agent = AuraCoreAgent(settings)
 
     with gr.Blocks(title="AuraCore") as demo:
-        state = gr.State(settings.model_dump(), render=False)
+        state = gr.State(settings.model_dump())
 
         gr.Markdown(
             "# AuraCore\nLocal-first chat + SDXL (ComfyUI) + image editing (Klein 4B) — pluggable backends"
