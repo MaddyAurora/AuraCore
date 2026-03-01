@@ -15,9 +15,9 @@ def build_app():
     settings = Settings.from_env()
     agent = AuraCoreAgent(settings)
 
-    state = gr.State(settings.model_dump())
-
     with gr.Blocks(title="AuraCore") as demo:
+        state = gr.State(settings.model_dump(), render=False)
+
         gr.Markdown(
             "# AuraCore\nLocal-first chat + SDXL (ComfyUI) + image editing (Klein 4B) — pluggable backends"
         )
@@ -143,15 +143,17 @@ def build_app():
                         current_scheduler=st.get("sdxl_scheduler"),
                     )
                     return (
-                        gr.update(choices=models, value=st.get("sdxl_model") or (models[0] if models else None)),
+                        gr.update(
+                            choices=models,
+                            value=st.get("sdxl_model") or (models[0] if models else None),
+                        ),
                         gr.update(
                             choices=samplers,
                             value=st.get("sdxl_sampler") or (samplers[0] if samplers else None),
                         ),
                         gr.update(
                             choices=schedulers,
-                            value=st.get("sdxl_scheduler")
-                            or (schedulers[0] if schedulers else None),
+                            value=st.get("sdxl_scheduler") or (schedulers[0] if schedulers else None),
                         ),
                         note,
                     )
