@@ -1,3 +1,5 @@
+Work in progress, not functional.
+
 # AuraCore
 
 AuraCore is a local-first Gradio WebUI that combines:
